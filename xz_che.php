@@ -3,7 +3,40 @@
 require_once "func.php";
 require_once "topen.php";
 require_once "functions.php";
+require_once "show_all_campany.php";
 
+// if (isset($_GET["start_date"])) {
+// 	$start_date =$_GET["start_date"];
+// } else {
+// 	$start_date ='';
+// }
+// if (isset($_GET["finish_date"])) {
+// 	$finish_date =$_GET["finish_date"];
+// } else {
+// 	$finish_date ='';
+// }
+
+// if (isset($_GET["active_company"])) {
+// 	$active_company =$_GET["active_company"];
+// } else {
+// 	$active_company =0;
+// }
+
+
+// echo "Даты нчала и окончания кампании<br>";
+// echo <<<HTML
+//  <form action="#" method="get">
+//  <input required type="date" name="start_date" value="$start_date"> Начало периода <Br><Br>
+//  <input required type="date" name="finish_date" value="$finish_date"> Конец периода <Br>
+//  <input type="checkbox" name="active_company" checked value="9"> Получить только активыные кампании <Br>
+
+//  <p><input type="submit" value="Отправить">
+// </form>
+// HTML;
+
+
+
+// die();
 
 /*
 Статус кампании:
@@ -24,92 +57,72 @@ require_once "functions.php";
 9 - поиск + каталог
 
 */
-$res = get_all_campanies($token_reklama ,9); // второй парамет - статус компании Если поставить 0 - то выведет вернет все статусы
-// echo "<br> ***********88888888888888888888888888888*********************<br>";
+$spisok_companies = get_all_campanies($token_reklama ,0); // второй парамет - статус компании Если поставить 0 - то выведет вернет все статусы
 
-// echo "<pre>";
-// print_r($res);
+echo "<pre>";
+print_r($spisok_companies);
 
-foreach ($res as $id_campany) {
-	// echo "<br> ***********". $id_campany['advertId'] ."**********************<br>";
-	$info_about_campany[] = get_info_about_advert_campany($token_reklama, $id_campany['advertId'] ) ;
-	// $res1 = get_statistic_poisk_advert_campany($token_reklama, $id_campany['advertId']); //Статистика по компаниям "ПОИСК"
-	// $res1[]  = get_statistic_automat_advert_campany($token_reklama, $id_campany['advertId']); // Статистика по "автоматическим" компаниям
-	// $res1[]  = get_full_statistic_advert_campany($token_reklama, 7414331); // полная статистика по компаниям
-	
-	sleep(1);
-	// print_r($rev);
-	// echo "<br> *************0000000000000000000000000000000000000000000000000*************************************************";
-}
-
-// print_r($info_about_campany);
+// foreach ($spisok_companies as $id_campany) {
+// 	$info_about_campany[] = get_info_about_advert_campany($token_reklama, $id_campany['advertId'] ) ;
+// }
 
 
 
 
-echo "<link rel=\"stylesheet\" href=\"styles.css\">";
-echo "<table>";
+$link_wb ="https://advert-api.wb.ru/adv/v2/fullstats";
+echo "<pre>";
+// $data = array((array("id" => 12492619,
+// 				"dates" => array("2023-12-20","2023-12-30") )));
 
-echo "<tr>";
-
-	echo "<td class=\"stroka\"><b>Название компании</b></td>";
-	echo "<td class=\"stroka\"><b>Фин. информация<br> по компании</b></td>";
-	echo "<td class=\"stroka\"><b>Подробная информация<br> по компании</b></td>";
-	echo "<td class=\"stroka\"><b>Статус</b></td>";
-	echo "<td class=\"stroka\"><b>тип компании</b></td>";
-
-echo "</tr>";
+$data = array((array("id" => 12492619,
+				 )));
 
 
-foreach ($info_about_campany as $campany) {
-	$id_company = $campany['advertId'];
-	echo "<tr>";
-		echo "<td class=\"stroka\">".$campany['name']."</td>";
-		echo "<td class=\"stroka\"><a href=\"full_stat.php?id_campany=$id_company\" target=\"_blank\">".$id_company ."</a></td>";
-	// для компании ПОИСК 
-	if ($campany['type'] == 6) {
-		echo "<td class=\"stroka\"><a href=\"campany_poisk.php?id_campany=$id_company\" target=\"_blank\">".$id_company ."</a></td>";
-	} else {
-		echo "<td class=\"stroka\">".$campany['type']."</td>";
-	}
-		echo "<td class=\"stroka\">".$campany['status']."</td>";
-		echo "<td class=\"stroka\">".print_campany_type($campany['type'])."</td>";
+$data_send = json_encode($data, JSON_UNESCAPED_UNICODE);
+print_r($data_send);
 
-	echo "</tr>";
-
-}
+$info_about_campany = light_query_with_data____($token_reklama, $link_wb, $data_send);
+echo "<pre>";
+print_r($info_about_campany);
 
 
-echo "<table>";
+echo "<br>КОМПАНИИ ГДЕ ИДУТ ПОКАЗЫ<br>";
+print_all_campany($info_about_campany);
 
 die();
 
-// $res1[]  = get_full_statistic_advert_campany($token_reklama, 7414331); // полная статистика по компаниям
 
-// //статистика по ключенвым фразам в этой компании 
-// print_r($res1[0]);
-
-// $kkk = json_decode(file_get_contents("xxx.json") , true);
-// print_r($kkk);
-
-
-function print_campany_type($type){
-	if ($type == 4)  {
-		return "кампания в каталоге";
-	} elseif ($type == 5)  {
-		return "кампания в карточке товара";
-	} elseif ($type == 6)  {
-		return "кампания в поиске";
-	} elseif ($type == 7)  {
-		return "кампания в рекомендациях на главной странице";
-	} elseif ($type == 8)  {
-		return "автоматическая кампания";
-	} elseif ($type == 9)  {
-		return "поиск + каталог";
-	} else {
-		return "!!! НЕТ ДАННЫХ";
-	}
-
-
+sleep(1);
+unset($info_about_campany);
+$res = get_all_campanies($token_reklama ,11); // второй парамет - статус компании Если поставить 0 - то выведет вернет все статусы
+foreach ($res as $id_campany) {
+	$info_about_campany[] = get_info_about_advert_campany($token_reklama, $id_campany['advertId'] ) ;
 }
 
+echo "<br>ПРИОСТАНОВЛЕННЫЕ КОМПАНИИ<br>";
+print_all_campany($info_about_campany);
+
+
+
+function light_query_with_data____($token_wb, $link_wb, $data){
+	$ch = curl_init($link_wb);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		'Authorization:' . $token_wb,
+		'Content-Type:application/json'
+	));
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_HEADER, false);
+	
+	$res = curl_exec($ch);
+	
+	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Получаем HTTP-код
+	curl_close($ch);
+		echo     '<br>Результат обмена(SELECT with Data): '.$http_code. "<br>";
+
+	$res = json_decode($res, true);
+	// var_dump($res); // выводит результирующий массив
+	return $res;
+
+}

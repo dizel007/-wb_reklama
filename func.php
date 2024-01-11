@@ -18,7 +18,6 @@ function light_query_without_data($token_wb, $link_wb){
 		echo     '<br> Результат обмена (SELECT without Data): '.$http_code;
 		
 	$res = json_decode($res, true);
-	
 	return $res;
 	}
 

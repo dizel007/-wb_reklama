@@ -56,7 +56,7 @@ foreach ($full_info_about_campany['days'] as $items) {
 // echo "<br><b> ********** ************{{{{{". $items['date'] ."}}}}}}}************ *********** **********</b><br>";
 // print_r($items);
 
-shows_advert_day($items['date'],$items);
+shows_advert_day(substr($items['date'], 0,10),$items);
 // echo "<br><b> ********** ************ ************ ************ *********** **********</b><br>";
 // die();
 }

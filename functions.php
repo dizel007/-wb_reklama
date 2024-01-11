@@ -4,11 +4,10 @@
 *************************************  Получаем все рекламные компании   ***************************************************
 ************************************************************************************************************************************/
 function get_all_campanies($token_reklama, $status ) {
-    $link_wb = 'https://advert-api.wb.ru/adv/v1/promotion/count';
+       $link_wb = 'https://advert-api.wb.ru/adv/v1/promotion/count';
+    
     $res = light_query_without_data ($token_reklama, $link_wb);
 
-    echo "<pre>";
-// print_r($res);
 
 /// делаем сортировку по статусу
     foreach ($res['adverts'] as $items) {
@@ -51,9 +50,9 @@ function get_all_campanies($token_reklama, $status ) {
 *************************************  Получаем все рекламные компании   ***************************************************
 ************************************************************************************************************************************/
 function get_info_about_advert_campany($token_reklama, $id_campany) {
-    echo "<br>";
-echo $link = 'https://advert-api.wb.ru/adv/v0/advert?id='.$id_campany;
-$res = light_query_without_data ($token_reklama, $link);
+    // echo "<br>";
+ $link = 'https://advert-api.wb.ru/adv/v0/advert?id='.$id_campany;
+ $res = light_query_without_data ($token_reklama, $link);
 
 return $res;
 }
@@ -64,18 +63,40 @@ return $res;
 ************************************************************************************************************************************/
 function get_statistic_poisk_advert_campany($token_reklama, $id_campany) {
 echo "<br>";
-    echo $link = 'https://advert-api.wb.ru/adv/v1/stat/words?id='.$id_campany;
+    $link = 'https://advert-api.wb.ru/adv/v1/stat/words?id='.$id_campany;
     $res = light_query_without_data ($token_reklama, $link);
     
     return $res;
     }
 
 /************************************************************************************************************************************
-*************************************  Статистика поисковых рекламных компаний   ***************************************************
+*************************************  Статистика поисковых + Каталог рекламных компаний   ***************************************************
+************************************************************************************************************************************/
+function get_statistic_poisk_plus_catalog_advert_campany($token_reklama, $id_campany) {
+    echo "<br>";
+        $link = 'https://advert-api.wb.ru/adv/v1/seacat/stat?id='.$id_campany;
+        $res = light_query_without_data ($token_reklama, $link);
+        
+        return $res;
+        }
+
+        
+/************************************************************************************************************************************
+*************************************  Статистика Автоматической рекламной компании   ***************************************************
+************************************************************************************************************************************/
+function get_MINI_statistic_automat_advert_campany($token_reklama, $id_campany) {
+    echo "<br>";
+        $link = 'https://advert-api.wb.ru/adv/v1/auto/stat?id='.$id_campany;
+        $res = light_query_without_data ($token_reklama, $link);
+        
+        return $res;
+        }
+/************************************************************************************************************************************
+*************************************  Статистика Автоматической рекламной компании   ***************************************************
 ************************************************************************************************************************************/
 function get_statistic_automat_advert_campany($token_reklama, $id_campany) {
     echo "<br>";
-        echo $link = 'https://advert-api.wb.ru/adv/v1/auto/stat-words?id='.$id_campany;
+        $link = 'https://advert-api.wb.ru/adv/v1/auto/stat-words?id='.$id_campany;
         $res = light_query_without_data ($token_reklama, $link);
         
         return $res;
@@ -86,7 +107,7 @@ function get_statistic_automat_advert_campany($token_reklama, $id_campany) {
 ************************************************************************************************************************************/
 function get_full_statistic_advert_campany($token_reklama, $id_campany) {
     echo "<br>";
-        echo $link = 'https://advert-api.wb.ru/adv/v1/fullstat?id='.$id_campany;
+        $link = 'https://advert-api.wb.ru/adv/v1/fullstat?id='.$id_campany;
         $res = light_query_without_data ($token_reklama, $link);
         
         return $res;
