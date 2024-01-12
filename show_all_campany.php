@@ -6,13 +6,39 @@ echo "<table>";
 
 echo "<tr>";
 
-	echo "<td class=\"stroka\"><b>Название компании</b></td>";
-    echo "<td class=\"stroka\"><b>Старт <br>кампании</b></td>";
-    echo "<td class=\"stroka\"><b>Изменена<br>кампания</b></td>";
-	echo "<td class=\"stroka\"><b>Фин. информация<br> по компании</b></td>";
-	echo "<td class=\"stroka\"><b>Подробная информация<br> по компании</b></td>";
-	echo "<td class=\"stroka\"><b>Статус</b></td>";
-	echo "<td class=\"stroka\"><b>тип компании</b></td>";
+	echo "<td class=\"stroka\"><b>ID компании</b></td>";
+    echo "<td class=\"stroka\"><b>дата начала и <br>окончания</b></td>";
+    echo "<td class=\"stroka\"><b>Количество<br>просмотров<br>(views)</b></td>";
+	echo "<td class=\"stroka\"><b>Количество<br>кликов<br>(clicks)</b></td>";
+
+	echo "<td class=\"stroka\"><b>Отношение числа<br>кликов к количеству <br>показов. Выражается в<br> процентах.(ctr)<br> по компании</b></td>";
+	echo "<td class=\"stroka\"><b>Средняя стоимость<br> клика(cpc)</b></td>";
+	echo "<td class=\"stroka\"><b>Затраты(sum)</b></td>";
+	echo "<td class=\"stroka\"><b>Количество<br> добавлений<br> товаров в<br> корзину.(atbs)</b></td>";
+	echo "<td class=\"stroka\"><b>Количество<br>заказов.<br>(orders)</b></td>";
+	echo "<td class=\"stroka\"><b>CR</b></td>";
+	echo "<td class=\"stroka\"><b>Количество<br>заказанных<br> товаров(shks)</b></td>";
+	echo "<td class=\"stroka\"><b>Заказов<br>на сумму<br> (sum_price)</b></td>";
+
+echo "</tr>";
+
+echo "<tr>";
+
+	echo "<td class=\"stroka\"><b>".$info_about_campany['advertId']."</b></td>";
+    echo "<td class=\"stroka\"><b>".$info_about_campany['interval']['begin']." / ".$info_about_campany['interval']['end']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['views']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['clicks']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['ctr']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['cpc']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['sum']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['atbs']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['orders']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['cr']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['shks']."</b></td>";
+	echo "<td class=\"stroka\"><b>".$info_about_campany['sum_price']."</b></td>";
+
+
+
 
 echo "</tr>";
 

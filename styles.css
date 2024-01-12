@@ -17,3 +17,14 @@ table {
 .first_stroka {
     background-color: rgb(218, 122, 82);  
 }
+
+.svod_data {
+    background-color: rgb(223, 233, 93); 
+    font-size: 14; 
+}
+
+.svod_day_data {
+    background-color: rgb(138, 189, 115);  
+    font-weight: 600;
+
+}

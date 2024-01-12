@@ -3,7 +3,7 @@
 require_once "func.php";
 require_once "topen.php";
 require_once "functions.php";
-require_once "show_all_campany.php";
+require_once "show_fullstat_about_campany.php";
 
 // if (isset($_GET["start_date"])) {
 // 	$start_date =$_GET["start_date"];
@@ -57,10 +57,10 @@ require_once "show_all_campany.php";
 9 - поиск + каталог
 
 */
-$spisok_companies = get_all_campanies($token_reklama ,0); // второй парамет - статус компании Если поставить 0 - то выведет вернет все статусы
+// $spisok_companies = get_all_campanies($token_reklama ,0); // второй парамет - статус компании Если поставить 0 - то выведет вернет все статусы
 
 echo "<pre>";
-print_r($spisok_companies);
+// print_r($spisok_companies);
 
 // foreach ($spisok_companies as $id_campany) {
 // 	$info_about_campany[] = get_info_about_advert_campany($token_reklama, $id_campany['advertId'] ) ;
@@ -71,26 +71,34 @@ print_r($spisok_companies);
 
 $link_wb ="https://advert-api.wb.ru/adv/v2/fullstats";
 echo "<pre>";
-// $data = array((array("id" => 12492619,
-// 				"dates" => array("2023-12-20","2023-12-30") )));
-
-$data = array((array("id" => 12492619,
-				 )));
-
+$data = array((array("id" => 12491527,
+		             "interval" => array(
+					  		"begin" => "2023-12-01",
+						  	  "end" => "2023-12-31")
+					)));
 
 $data_send = json_encode($data, JSON_UNESCAPED_UNICODE);
-print_r($data_send);
+// $info_about_campany = light_query_with_data____($token_reklama, $link_wb, $data_send);
 
-$info_about_campany = light_query_with_data____($token_reklama, $link_wb, $data_send);
+
+// file_put_contents('xxx1.json', json_encode($info_about_campany, JSON_UNESCAPED_UNICODE));
+
+
+
+
+$info_about_campany = json_decode(file_get_contents('xxx.json'), true);
+
 echo "<pre>";
-print_r($info_about_campany);
+// print_r($info_about_campany[0]);
+
+
 
 
 echo "<br>КОМПАНИИ ГДЕ ИДУТ ПОКАЗЫ<br>";
-print_all_campany($info_about_campany);
+print_fullstat_about_campany($info_about_campany[0]);
 
 die();
-
+ 
 
 sleep(1);
 unset($info_about_campany);
@@ -100,7 +108,7 @@ foreach ($res as $id_campany) {
 }
 
 echo "<br>ПРИОСТАНОВЛЕННЫЕ КОМПАНИИ<br>";
-print_all_campany($info_about_campany);
+print_fullstat_about_campany($info_about_campany);
 
 
 
