@@ -114,3 +114,33 @@ function get_full_statistic_advert_campany($token_reklama, $id_campany) {
         }
     
         
+
+/************************************************************************************************************************************
+*************************************  Полная статистика кампании   ***************************************************
+************************************************************************************************************************************/
+function get_statistic_campany_poisk_date($token_reklama, $id_campany) {
+
+    $data = array((array("id" => 12492619,
+		             "interval" => array(
+					  		"begin" => "2024-01-01",
+						  	  "end" => "2024-01-23")
+					)));
+
+// $data_send = json_encode($data, JSON_UNESCAPED_UNICODE);
+print_r($data);
+die();
+
+file_put_contents('xxx1.json', json_encode($info_about_campany, JSON_UNESCAPED_UNICODE));
+
+
+
+
+$info_about_campany = json_decode(file_get_contents('xxx.json'), true);
+
+        $link = 'https://advert-api.wb.ru/adv/v2/fullstats?id='.$id_campany;
+        $res = light_query_with_data($token_wb, $link_wb, $data);
+        
+        return $res;
+        }
+    
+        

@@ -21,6 +21,7 @@ table {
 .svod_data {
     background-color: rgb(223, 233, 93); 
     font-size: 14; 
+    text-align: center;
 }
 
 .svod_day_data {

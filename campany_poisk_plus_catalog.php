@@ -1,13 +1,13 @@
 <?php
 require_once "func.php";
-require_once "topen.php";
+require_once "tokens/topen.php";
 require_once "functions.php";
 echo "<link rel=\"stylesheet\" href=\"styles.css\">";
 
 
 $id_campany = $_GET['id_campany'];
 
-$info_poisk_plus_catalog_campany =  get_statistic_poisk_plus_catalog_advert_campany($token_reklama, $id_campany); //Статистика по компаниям "ПОИСК"
+$info_poisk_plus_catalog_campany =  get_statistic_poisk_plus_catalog_advert_campany($token_wb, $id_campany); //Статистика по компаниям "ПОИСК"
 
 // echo "<pre>";
 // print_r($info_poisk_plus_catalog_campany);

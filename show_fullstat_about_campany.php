@@ -1,5 +1,14 @@
 <?php
 
+require_once "func.php";
+require_once "tokens/topen.php";
+require_once "functions.php";
+require_once "show_fullstat_about_campany.php";
+require_once "show_all_campany.php";
+
+// $advertId = $_GET['advertId'];
+
+
 function print_fullstat_about_campany($info_about_campany) {
 echo "<link rel=\"stylesheet\" href=\"styles.css\">";
 echo "<table>";
@@ -202,24 +211,4 @@ return $new_arr_apps;
 
 
 
-
-function print_campany_type($type){
-	if ($type == 4)  {
-		return "кампания в каталоге";
-	} elseif ($type == 5)  {
-		return "кампания в карточке товара";
-	} elseif ($type == 6)  {
-		return "Поиск";
-	} elseif ($type == 7)  {
-		return "кампания в рекомендациях на главной странице";
-	} elseif ($type == 8)  {
-		return "автоматическая кампания";
-	} elseif ($type == 9)  {
-		return "поиск + каталог";
-	} else {
-		return "!!! НЕТ ДАННЫХ";
-	}
-
-
-}
 

@@ -6,65 +6,49 @@ echo "<table>";
 
 echo "<tr>";
 
-	echo "<td class=\"stroka\"><b>ID компании</b></td>";
-    echo "<td class=\"stroka\"><b>дата начала и <br>окончания</b></td>";
-    echo "<td class=\"stroka\"><b>Количество<br>просмотров<br>(views)</b></td>";
-	echo "<td class=\"stroka\"><b>Количество<br>кликов<br>(clicks)</b></td>";
+	echo "<td class=\"stroka\"><b>ID кампании</b></td>";
+	echo "<td class=\"stroka\"><b>Название кампании</b></td>";
+    echo "<td class=\"stroka\"><b>дата начала и <br>изменения</b></td>";
+    echo "<td class=\"stroka\"><b>Тип<br>кампании</b></td>";
+	echo "<td class=\"stroka\"><b>Статус<br>кампании</b></td>";
 
-	echo "<td class=\"stroka\"><b>Отношение числа<br>кликов к количеству <br>показов. Выражается в<br> процентах.(ctr)<br> по компании</b></td>";
+	echo "<td class=\"stroka\"><b>Активность<br>фиксированных<br>фраз</b></td>";
 	echo "<td class=\"stroka\"><b>Средняя стоимость<br> клика(cpc)</b></td>";
 	echo "<td class=\"stroka\"><b>Затраты(sum)</b></td>";
 	echo "<td class=\"stroka\"><b>Количество<br> добавлений<br> товаров в<br> корзину.(atbs)</b></td>";
-	echo "<td class=\"stroka\"><b>Количество<br>заказов.<br>(orders)</b></td>";
-	echo "<td class=\"stroka\"><b>CR</b></td>";
-	echo "<td class=\"stroka\"><b>Количество<br>заказанных<br> товаров(shks)</b></td>";
-	echo "<td class=\"stroka\"><b>Заказов<br>на сумму<br> (sum_price)</b></td>";
-
-echo "</tr>";
-
-echo "<tr>";
-
-	echo "<td class=\"stroka\"><b>".$info_about_campany['advertId']."</b></td>";
-    echo "<td class=\"stroka\"><b>".$info_about_campany['interval']['begin']." / ".$info_about_campany['interval']['end']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['views']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['clicks']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['ctr']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['cpc']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['sum']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['atbs']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['orders']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['cr']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['shks']."</b></td>";
-	echo "<td class=\"stroka\"><b>".$info_about_campany['sum_price']."</b></td>";
-
-
-
-
+	
 echo "</tr>";
 
 
 foreach ($info_about_campany as $campany) {
 	$id_company = $campany['advertId'];
 	echo "<tr>";
+		echo "<td class=\"stroka\"><a href=\"campany_poisk_buh_stat.php?id_campany=$id_company\" target=\"_blank\">".$campany['advertId']."</a></td>";
 		echo "<td class=\"stroka\">".$campany['name']."</td>";
-        echo "<td class=\"stroka\">".substr($campany['startTime'], 0,10)."</td>";
-        echo "<td class=\"stroka\">".substr($campany['changeTime'], 0,10)."</td>";
-        
-		echo "<td class=\"stroka\"><a href=\"full_stat.php?id_campany=$id_company\" target=\"_blank\">".$id_company ."</a></td>";
+        echo "<td class=\"stroka\">".substr($campany['startTime'], 0,10)."<br> ".substr($campany['changeTime'], 0,10)."</td>";
+
+		$type_campany = print_campany_type($campany['type']);
+		if ($campany['type'] == 6) {
+			echo "<td class=\"stroka\"><a href=\"campany_poisk.php?id_campany=$id_company\" target=\"_blank\">".$type_campany ."</a></td>";
+		/// автоматическая компания
+		} elseif ($campany['type'] == 8) {
+			echo "<td class=\"stroka\"><a href=\"campany_autimatic.php?id_campany=$id_company\" target=\"_blank\">".$type_campany ."</a></td>";
+		// для кампании поиск + каталог
+		}  elseif ($campany['type'] == 9) {
+			echo "<td class=\"stroka\"><a href=\"campany_poisk_plus_catalog.php?id_campany=$id_company\" target=\"_blank\">".$type_campany ."</a></td>";
+		}	else {
+			echo "<td class=\"stroka\">".$type_campany."</td>";
+		}
+		
+        $status = print_campany_status($campany['status']);
+		echo "<td class=\"stroka\">".$status ."</td>";
+if (isset($campany['searchPluseState'])) {
+		echo "<td class=\"stroka\">".$campany['searchPluseState'] ."</td>";
+} else {
+	echo "<td class=\"stroka\"></td>";
+}
 	// для компании ПОИСК 
-	if ($campany['type'] == 6) {
-		echo "<td class=\"stroka\"><a href=\"campany_poisk.php?id_campany=$id_company\" target=\"_blank\">".$id_company ."</a></td>";
-    /// автоматическая компания
-	} elseif ($campany['type'] == 8) {
-		echo "<td class=\"stroka\"><a href=\"campany_autimatic.php?id_campany=$id_company\" target=\"_blank\">".$id_company ."</a></td>";
-    // для кампании поиск + каталог
-	}  elseif ($campany['type'] == 9) {
-		echo "<td class=\"stroka\"><a href=\"campany_poisk_plus_catalog.php?id_campany=$id_company\" target=\"_blank\">".$id_company ."</a></td>";
-	}	else {
-		echo "<td class=\"stroka\">".$campany['type']."</td>";
-	}
-		echo "<td class=\"stroka\">".$campany['status']."</td>";
-		echo "<td class=\"stroka\">".print_campany_type($campany['type'])."</td>";
+	
 
 	echo "</tr>";
 
@@ -91,7 +75,20 @@ function print_campany_type($type){
 	} else {
 		return "!!! НЕТ ДАННЫХ";
 	}
-
-
 }
 
+function print_campany_status($status){
+	if ($status == 9)  {
+		return "идут показы";
+	} elseif ($status == 11)  {
+		return "кампания на паузе";
+	} elseif ($status == 8)  {
+		return "отказался";
+	} elseif ($status == 7)  {
+		return "кампания в рекомендациях на главной странице";
+	} elseif ($status == 4)  {
+		return "готова к запуску";
+	} else {
+		return "!!! НЕТ ДАННЫХ";
+	}
+}

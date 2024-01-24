@@ -1,6 +1,6 @@
 <?php
 require_once "func.php";
-require_once "topen.php";
+require_once "tokens/topen.php";
 require_once "functions.php";
 echo "<link rel=\"stylesheet\" href=\"styles.css\">";
 
@@ -13,7 +13,7 @@ echo "<pre>";
 // print_r($mini_info);
 
 sleep(5);
-$info_automatic_campany = get_statistic_automat_advert_campany($token_reklama, $id_campany); //Статистика по компаниям "ПОИСК"
+$info_automatic_campany = get_statistic_automat_advert_campany($token_wb, $id_campany); //Статистика по компаниям "ПОИСК"
 
 
 
