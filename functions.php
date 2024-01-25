@@ -81,26 +81,6 @@ function get_statistic_poisk_plus_catalog_advert_campany($token_reklama, $id_cam
         }
 
         
-/************************************************************************************************************************************
-*************************************  Статистика Автоматической рекламной компании   ***************************************************
-************************************************************************************************************************************/
-function get_MINI_statistic_automat_advert_campany($token_reklama, $id_campany) {
-    echo "<br>";
-        $link = 'https://advert-api.wb.ru/adv/v1/auto/stat?id='.$id_campany;
-        $res = light_query_without_data ($token_reklama, $link);
-        
-        return $res;
-        }
-/************************************************************************************************************************************
-*************************************  Статистика Автоматической рекламной компании   ***************************************************
-************************************************************************************************************************************/
-function get_statistic_automat_advert_campany($token_reklama, $id_campany) {
-    echo "<br>";
-        $link = 'https://advert-api.wb.ru/adv/v1/auto/stat-words?id='.$id_campany;
-        $res = light_query_without_data ($token_reklama, $link);
-        
-        return $res;
-        }
 
 /************************************************************************************************************************************
 *************************************  Полная статистика кампании   ***************************************************
@@ -113,34 +93,7 @@ function get_full_statistic_advert_campany($token_reklama, $id_campany) {
         return $res;
         }
     
-        
+       
 
-/************************************************************************************************************************************
-*************************************  Полная статистика кампании   ***************************************************
-************************************************************************************************************************************/
-function get_statistic_campany_poisk_date($token_reklama, $id_campany) {
-
-    $data = array((array("id" => 12492619,
-		             "interval" => array(
-					  		"begin" => "2024-01-01",
-						  	  "end" => "2024-01-23")
-					)));
-
-// $data_send = json_encode($data, JSON_UNESCAPED_UNICODE);
-print_r($data);
-die();
-
-file_put_contents('xxx1.json', json_encode($info_about_campany, JSON_UNESCAPED_UNICODE));
-
-
-
-
-$info_about_campany = json_decode(file_get_contents('xxx.json'), true);
-
-        $link = 'https://advert-api.wb.ru/adv/v2/fullstats?id='.$id_campany;
-        $res = light_query_with_data($token_wb, $link_wb, $data);
-        
-        return $res;
-        }
     
         

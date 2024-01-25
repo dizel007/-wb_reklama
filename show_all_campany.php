@@ -13,9 +13,7 @@ echo "<tr>";
 	echo "<td class=\"stroka\"><b>Статус<br>кампании</b></td>";
 
 	echo "<td class=\"stroka\"><b>Активность<br>фиксированных<br>фраз</b></td>";
-	echo "<td class=\"stroka\"><b>Средняя стоимость<br> клика(cpc)</b></td>";
-	echo "<td class=\"stroka\"><b>Затраты(sum)</b></td>";
-	echo "<td class=\"stroka\"><b>Количество<br> добавлений<br> товаров в<br> корзину.(atbs)</b></td>";
+
 	
 echo "</tr>";
 

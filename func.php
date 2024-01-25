@@ -14,9 +14,16 @@ function light_query_without_data($token_wb, $link_wb){
 	
 	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Получаем HTTP-код
 	curl_close($ch);
-	
-		echo     '<br> Результат обмена (SELECT without Data): '.$http_code;
-		
+
+		if (intdiv($http_code,100) <> 2) {
+			echo     '<br> Результат обмена (SELECT without Data): '.$http_code;
+		}
+		if ( $http_code == 429 ) {
+			
+			echo     '<br> Превышен лимит по запросам. Повторите запрос через 2 минуты ';
+			die('DIE');
+		}
+
 	$res = json_decode($res, true);
 	return $res;
 	}
@@ -40,11 +47,18 @@ function light_query_with_data($token_wb, $link_wb, $data){
 	
 	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Получаем HTTP-код
 	curl_close($ch);
-		echo     '<br>Результат обмена(SELECT with Data): '.$http_code. "<br>";
+	
+	if (intdiv($http_code,100) <> 2) {
+		   echo     '<br>Результат обмена(SELECT with Data): '.$http_code. "<br>";
+	}
+	if ( $http_code == 429 ) {
+				echo     '<br> Превышен лимит по запросам. Повторите запрос через 2 минуты ';
+		die('DIE');
+	}
 
 	$res = json_decode($res, true);
-	// var_dump($res); // выводит результирующий массив
-	return $res;
+
+return $res;
 
 }
 
@@ -69,10 +83,13 @@ $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Получаем HTTP-к�
 curl_close($ch);
 
 
-
-	echo     '<br>Результат обмена (PATCH): '.$http_code;
-
-
+	if (intdiv($http_code,100) <> 2) {
+		echo     '<br>Результат обмена (PATCH): '.$http_code;
+	}
+	if ( $http_code == 429 ) {
+		echo     '<br> Превышен лимит по запросам. Повторите запрос через 2 минуты ';
+		die('DIE');
+	}
 
 $res = json_decode($res, true);
 
